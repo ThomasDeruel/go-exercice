@@ -1,1 +1,1 @@
-# Go exercice
+# Go exercice 1
