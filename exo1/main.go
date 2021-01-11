@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	fmt.Println(   "Bad")
-	fmt.Println("formatin"             ) 
+	fmt.Println("Bad")
+	fmt.Println("formatin")
 }
