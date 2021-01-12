@@ -2,19 +2,19 @@ package main
 
 import (
 	"fmt"
-	"strconv"
+	//"strconv"
 	"strings"
 )
 
 type IPAddr [4]byte
 
-
-func(ip IPAddr)String() string {
+func (ip IPAddr) String() string {
 	res := []string{}
-	for _,val := range ip {
-		res = append(res,strconv.Itoa(int(val)))
+	for _, val := range ip {
+		// res = append(res,fmt.Sprintf((string(val)))) (same)
+		res = append(res, fmt.Sprintf("%v", val))
 	}
-	stringval := strings.Join(res,".")
+	stringval := strings.Join(res, ".")
 	return fmt.Sprintf("print: %v", stringval)
 }
 func main() {
@@ -22,7 +22,7 @@ func main() {
 		"loopback":  {127, 0, 0, 1},
 		"googleDNS": {8, 8, 8, 8},
 	}
-	for _,val := range hosts {
+	for _, val := range hosts {
 		fmt.Println(val)
 	}
 }
