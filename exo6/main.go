@@ -9,12 +9,11 @@ type MyError struct{
 	When time.Time
 	What string
 }
-// implementation, but ....
-// Wtf is " * "
+
 func (err *MyError) Error() string {
-	return fmt.Sprintf("When %s: \nWhat: %s", err.When, err.What)
+	return fmt.Sprintf("[Error]:\nWhen %s: \nWhat: %s", err.When, err.What)
 }
-// Wtf is " & "
+
 func run() error {
 	return &MyError{
 		When: time.Now(),
@@ -23,5 +22,9 @@ func run() error {
 }
 
 func main() {
-	fmt.Println(run())
+	err := run()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
