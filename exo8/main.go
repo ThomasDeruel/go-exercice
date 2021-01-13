@@ -1,30 +1,32 @@
 package main
 
 import (
-	//"fmt"
 	"encoding/json"
+	"fmt"
 	"log"
-	"os"
+	"io/ioutil"
 )
 
 type User struct {
-	Login    string `json:"user-Name"`
+	userName string
 	Password string
 }
 
 func main() {
-	var Paul = User{"Paul", "pass123"}
-	paul_injson, err := json.Marshal(Paul)
+	data, err := ioutil.ReadFile("./users.json")
 	if err != nil {
 		log.Fatal(err)
 	}
-	// stdout: sortie standard ->
-	os.Stdout.Write(paul_injson)
+	var users []User
+	err = json.Unmarshal(data, &users)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%+v", users)
 	/*
-	
-	output:
+		output:
 
-	{"user-Name":"Paul","Password":"pass123"}
+		[{userName: Password:123456} {userName: Password:azerty}]
 
 	*/
 }
