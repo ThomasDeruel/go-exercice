@@ -20,4 +20,11 @@ func main() {
 	}
 	// stdout: sortie standard ->
 	os.Stdout.Write(paul_injson)
+	/*
+	
+	output:
+
+	{"user-Name":"Paul","Password":"pass123"}
+
+	*/
 }
