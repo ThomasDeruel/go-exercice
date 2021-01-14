@@ -7,24 +7,26 @@ import (
 	"log"
 	"encoding/json"
 	"crypto/sha256"
+	"sync"
 )
 
 type typeURLs struct {
 	Urls []string `json:"urls,omitempty"`
 }
+var wg sync.WaitGroup
 
-func hashImg(path string) []byte{
+func hashImg(path string, wg *sync.WaitGroup) [32]byte{
 	resp, err := http.Get(path)
 	if err != nil {
 		log.Fatal(err)
 	}
 	content, er := ioutil.ReadAll(resp.Body)
+	fmt.Println(path)
 	if er != nil {
 		log.Fatal(er)
 	}
-	h := sha256.New()
-	h.Write(content)
-	return h.Sum(nil)
+	defer wg.Done()
+	return sha256.Sum256(content)
 }
 
 func main() {
@@ -45,17 +47,20 @@ func main() {
 			log.Fatal(err)
 			return
 		}
-		c := make(chan []byte)
-		my_bytes := [][]byte{}
+
+		ch:= make(chan [32]byte)
+		//my_bytes := [][]byte{}
 		for _,url := range urls.Urls {
+			wg.Add(1)
 			go func(){
-				fmt.Println(url)
-				//test := hashImg(url)
-				c <- hashImg(url)
-				my_bytes = append(my_bytes,<-c)
+				ch <-hashImg(url, &wg)
 			}()
-			fmt.Println(my_bytes)
+			wg.Wait()
 		}
+
+		for res := range ch{
+			fmt.Printf("Mon hash: %s \n", res)
+		 }
 	})
-	http.ListenAndServe(":80", nil)
+	http.ListenAndServe(":8081", nil)
 }
