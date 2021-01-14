@@ -29,16 +29,14 @@ func main(){
 		reader := bytes.NewReader(urls_byte)
 		// response, er => get response
 		_, er := http.Post(
-			"http://localhost:80",
+			"http://localhost:8081",
 			"appplication/json",
 			reader,
 		)
 		if er != nil {
 			log.Fatal(er)
-			return
 		}
 		fmt.Println("ok")
-		return
 	}
 	fmt.Println("-urls is empty")
 }
