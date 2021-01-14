@@ -30,7 +30,7 @@ func main(){
 	result := <-c
 	switch v := result.(type) {
 	case int:
-		fmt.Printf("Le nombre suivant est bon: %d", result)
+		fmt.Printf("Le nombre suivant est bon: %d", v)
 	case error:
 		fmt.Println(v)
 	}
