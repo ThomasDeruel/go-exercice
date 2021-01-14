@@ -10,7 +10,7 @@ go func (){
 
 >Attention à la synchronisation: la fonction `main()` n'attend pas que les fonctions parallèles se terminent.
 
-2. `type sync.WaitGroups struct {}`: permet d'attendre que tous les goroutines se terminent. Fait appel à quelques méthodes:
+2. `type sync.WaitGroups struct {}`: permet d'attendre que toutes les goroutines se terminent. Fait appel à quelques méthodes:
     -   `Add(delta int)`: incrémente le counteur de 1 
     -   `Done()`: décrémente le compteur de 1
     -   `Wait()`: bloque jusqu'à que le compteur atteigne 0
